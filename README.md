@@ -7,7 +7,6 @@ SpeakHeart is a new-generation dating app focused on authentic connections throu
 - Architecture: `docs/ARCHITECTURE.md`
 - Design System: `docs/DESIGN_SYSTEM.md`
 - Engineering Guidelines: `docs/ENGINEERING_GUIDELINES.md`
-- Agents & Roles: `docs/AGENTS.md`
 - ADR-0001: Choose Expo: `docs/ADR/ADR-0001-choose-expo.md`
 
 ## Tech Stack (proposed)

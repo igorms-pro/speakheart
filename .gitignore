@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# Node/Expo
+node_modules/
+.npm/
+.pnpm-store/
+.expo/
+.expo-shared/
+apps/mobile/.expo/
+apps/mobile/node_modules/
+
+# Build outputs
+build/
+dist/
+web-build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env
+.env
+.env.*
+!.env.example
+
+# iOS/Android (when prebuilt)
+ios/Pods/
+ios/build/
+android/.gradle/
+android/app/build/
+
+# IDE
+.vscode/
+.idea/
+
+# Private docs
+docs/AGENTS.md
