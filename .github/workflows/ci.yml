@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  lint-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install root tools
+        run: npm ci || npm i
+      - name: Install mobile deps
+        run: |
+          cd apps/mobile
+          npm ci || npm i
+      - name: Lint
+        run: |
+          cd apps/mobile
+          npx eslint .
+      - name: Typecheck
+        run: |
+          cd apps/mobile
+          npx tsc --noEmit
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install deps
+        run: |
+          npm ci || npm i
+          cd apps/mobile && npm ci || npm i
+      - name: Run unit tests (placeholder)
+        run: |
+          echo "No tests yet"

@@ -22,14 +22,15 @@
 - Comments only for non-obvious rationale/edge cases.
 
 ## Testing
-- Unit tests for pure logic and hooks.
+- Unit: Jest/RTL
 - Component tests for core primitives.
 - E2E for critical flows: auth, KYC, chat, calls.
 
 ## Performance
-- Memoize heavy components.
+- Hermes enabled; production minify/inlineRequires.
+- Memoize heavy components; selector-based state.
 - Virtualize long lists.
-- Avoid unnecessary re-renders (selector-based state).
+- Track JS bundle size in CI; enforce budgets.
 
 ## Security & Privacy
 - Store tokens securely; minimize PII on device.
@@ -42,3 +43,38 @@
 ## Helpers & Utilities
 - Place pure helpers in `src/utils`. No IO side effects.
 - Reuse shared hooks/components; do not duplicate similar code.
+
+## Production Checklist
+- Build & runtime
+  - Hermes + release optimizations on EAS builds
+  - OTA channels (dev/preview/prod) with phased rollouts
+  - App bundle size budget enforced in CI
+- Data & state
+  - React Query for server state; offline retries
+  - Client state via Zustand/RTK with selectors
+  - Secure persistence: `expo-secure-store`; MMKV for non-secrets
+- Networking
+  - Exponential backoff, circuit breakers, idempotent mutations
+  - Request tracing headers; gzip/brotli enabled
+  - Offline queue for critical actions
+- Media
+  - Audio via `expo-av`; standardized formats, duration caps
+  - CDN-backed uploads (resumable/chunked), signed URLs
+- Realtime & Calls
+  - Managed realtime (e.g., Ably/Pusher) with backpressure
+  - WebRTC provider (ADR) with <2s join target
+- Monitoring & Flags
+  - Sentry crash + performance tracing
+  - PostHog analytics with taxonomy
+  - Feature flags and kill switches
+- Security
+  - KYC provider with backend verification
+  - Device integrity heuristics; token rotation
+  - Rate limits and abuse detection
+- Privacy & Compliance
+  - Consent gating; PII scrubbing in logs
+  - Region-aware storage; DSR (export/delete) paths
+- Release Readiness
+  - App Store/Play assets
+  - Forced upgrade for breaking protocol changes
+  - Rollback plan and feature flag coverage
