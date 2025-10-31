@@ -1,0 +1,15 @@
+appId: com.speakheart.app
+name: Smoke
+steps:
+  - launchApp:
+      clearState: true
+  - tapOn:
+      text: "Allow"
+      optional: true
+  - assertVisible:
+      text: "SpeakHeart"
+      optional: true
+  - assertVisible:
+      contains: true
+      text: "Home"
+      optional: true

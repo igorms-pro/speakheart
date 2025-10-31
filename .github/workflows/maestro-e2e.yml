@@ -1,0 +1,35 @@
+name: E2E (Maestro)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'maestro/**'
+      - 'apps/mobile/**'
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Maestro CLI
+        uses: mobile-dev-inc/maestro-action@v1
+
+      - name: Validate Maestro flows
+        run: maestro validate maestro/smoke.yaml
+
+      - name: Run on Maestro Cloud (if token set)
+        if: ${{ secrets.MAESTRO_CLOUD_TOKEN != '' }}
+        env:
+          MAESTRO_CLOUD_API_KEY: ${{ secrets.MAESTRO_CLOUD_TOKEN }}
+        run: maestro cloud maestro/smoke.yaml
+
+      - name: Skip notice
+        if: ${{ secrets.MAESTRO_CLOUD_TOKEN == '' }}
+        run: echo "MAESTRO_CLOUD_TOKEN not set; skipping device run. Flows validated only."
