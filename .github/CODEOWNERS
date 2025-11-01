@@ -1,0 +1,4 @@
+# Owners for critical paths
+/docs/* @igorms-pro
+/apps/mobile/* @igorms-pro
+/.github/* @igorms-pro

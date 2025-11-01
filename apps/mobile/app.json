@@ -1,4 +1,9 @@
 {
   "name": "mobile",
-  "slug": "mobile"
+  "slug": "mobile",
+  "plugins": [
+    "expo-localization",
+    "react-native-mmkv",
+    "sentry-expo"
+  ]
 }
